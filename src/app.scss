@@ -1,0 +1,29 @@
+:root {
+--accent-color: #89b4fa;
+
+  --background: #1e1e2e;
+  --background-secondary: #313244;
+  --color: #cdd6f4;
+  --color-secondary: #bac2de;
+
+  @media (prefers-color-scheme: light) {
+    --background: #eff1f5;
+    --background-secondary: #ccd0da;
+    --color: #4c4f69;
+    --color-secondary: #5c5f77;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; 
+}
+
+body {
+  color: var(--color);
+  background: var(--background);
+  font-family: "Fira Sans", sans-serif;
+  font-size: clamp(0.8rem, 3.5vw, 1.1rem);
+}

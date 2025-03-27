@@ -61,14 +61,15 @@
 		box-shadow: 0 0 10px 2px $shadow;
 		transition: scale 0.25s;
 		&:hover {
-			scale: 1.09;
+			scale: 1.08;
 		}
 	}
 
 	section {
 		display: grid;
 		gap: 1rem;
-		max-width: 30em;
+		width: clamp(25em, 75vw, 40em);
+		
 
 		p {
 			color: var(--color-secondary);

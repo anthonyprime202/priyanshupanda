@@ -101,7 +101,7 @@
 <style lang="scss">
 	nav {
 		position: absolute;
-		right: 3em;
+		right: 2.5em;
 		bottom: 1em;
 		text-align: end;
 		font-size: 1.1em;
@@ -159,8 +159,8 @@
 
 	.theme-button {
 		position: absolute;
-		top: 1em;
-		right: 3em;
+		top: 2em;
+		right: 2em;
 		font-size: 1.3em;
 	}
 </style>

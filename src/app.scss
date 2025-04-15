@@ -1,17 +1,21 @@
 :root {
---accent-color: #89b4fa;
+  --accent-color: #1e66f5;
+  --background: #eff1f5;
+  --background-secondary: #ccd0da;
+  --color: #4c4f69;
+  --color-secondary: #5c5f77;
+}
 
+html.dark {
+  --accent-color: #89b4fa;
   --background: #1e1e2e;
   --background-secondary: #313244;
   --color: #cdd6f4;
   --color-secondary: #bac2de;
+}
 
-  @media (prefers-color-scheme: light) {
-    --background: #eff1f5;
-    --background-secondary: #ccd0da;
-    --color: #4c4f69;
-    --color-secondary: #5c5f77;
-  }
+html.theme-transition * {
+  transition: background-color 0.3s, color 0.3s;
 }
 
 * {

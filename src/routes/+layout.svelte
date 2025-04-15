@@ -1,29 +1,86 @@
 <script lang="ts">
-	import { fly } from 'svelte/transition';
-	import '../app.scss';
+	import "../app.scss";
+
+	import { fly } from "svelte/transition";
+	import { browser } from "$app/environment";
+	import { onMount } from "svelte";
+	import { page } from "$app/state";
+	import type { Theme } from "$lib/types";
+	import Icon from "@iconify/svelte";
+
 	let { children } = $props();
 
+	// Nav part of the code
 	let showNav = $state(false);
 	let hoveredNavPos = $state<number | null>(null);
 	let navItems = $state([
-		{ pos: 0, label: 'projects', href: '/projects' },
-		{ pos: 1, label: 'about', href: '/about' },
-		{ pos: 2, label: 'blogs', href: '/blogs' },
+		{ pos: 0, label: "home", href: "/" },
+		{ pos: 1, label: "projects", href: "/projects" },
+		{ pos: 2, label: "about", href: "/about" },
+		{ pos: 3, label: "blogs", href: "/blogs" },
 	]);
+
+	function getInitialTheme(): Theme {
+		const storedTheme = browser && localStorage.getItem("theme");
+		return !storedTheme ? "system" : storedTheme === "dark" ? storedTheme : "light";
+	}
+
+	let theme = $state<Theme>(getInitialTheme());
+	let themeIcons = {
+		dark: "lucide:moon",
+		light: "lucide:sun",
+		system: "lucide:sun-moon",
+	};
+
+	function toggleTheme() {
+		theme = theme === "dark" ? "light" : theme === "light" ? "system" : "dark";
+	}
+
+	$effect(() => {
+		let isDark = false;
+		switch (theme) {
+			case "dark":
+			case "light":
+				localStorage.setItem("theme", theme);
+				isDark = theme === "dark";
+				break;
+			case "system":
+				localStorage.removeItem("theme");
+				isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+				break;
+		}
+		document.documentElement.classList.toggle("dark", isDark);
+	});
+
+	onMount(() => {
+		window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+			if (theme === "system") {
+				document.documentElement.classList.toggle("dark", e.matches);
+			}
+		});
+		requestAnimationFrame(() => {
+			// Delay until after first paint so that it doesn't give flashbang 💥
+			document.documentElement.classList.add("theme-transition");
+		});
+	});
 </script>
+
+<button class="theme-button" onclick={toggleTheme}><Icon icon={themeIcons[theme]} /></button>
 
 <nav>
 	{#if showNav}
 		<ul>
-			{#each navItems as { pos, label, href } (pos)}
+			{#each navItems as { pos, label, href }}
 				<li
+					class:hidden={href === page.url.pathname}
 					in:fly|global={{ x: 20, duration: 250, delay: pos * 50 }}
 					out:fly|global={{ x: 20, duration: 250 }}
+					translate="yes"
 					onmouseenter={() => (hoveredNavPos = pos)}
 					onmouseleave={() => (hoveredNavPos = null)}
 				>
-					{#if hoveredNavPos === pos}
-						<span class="hover-text-span" transition:fly|global={{ duration: 250, x: -20 }}>cd</span
+					{#if hoveredNavPos === pos || href === page.url.pathname}
+						<span class="hover-text-span" transition:fly|global={{ duration: 250, x: -20 }}>c{#if href === page.url.pathname}<span transition:fly|global={{ duration: 250, y: -20 }}>w</span>{/if}d</span
 						>
 					{/if}
 
@@ -32,7 +89,7 @@
 			{/each}
 		</ul>
 	{/if}
-	<button onclick={() => (showNav = !showNav)}>
+	<button class="nav-button" onclick={() => (showNav = !showNav)}>
 		{#if showNav}
 			<span class="hover-text-span" transition:fly|global={{ duration: 250, x: -20 }}>c</span>
 		{/if}ls
@@ -69,8 +126,9 @@
 		list-style: none;
 		position: relative;
 		width: fit-content;
+
 		&::after {
-			content: '';
+			content: "";
 			background: var(--accent-color);
 			width: 0;
 			height: 2px;
@@ -86,10 +144,10 @@
 	}
 
 	li,
-	button {
+	.nav-button {
 		padding-block: 0.3em;
 	}
-	
+
 	a {
 		color: inherit;
 		text-decoration: none;
@@ -97,5 +155,12 @@
 
 	.hover-text-span {
 		color: var(--accent-color);
+	}
+
+	.theme-button {
+		position: absolute;
+		top: 1em;
+		right: 3em;
+		font-size: 1.3em;
 	}
 </style>

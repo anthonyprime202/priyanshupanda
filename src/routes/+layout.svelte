@@ -7,6 +7,7 @@
 	import { page } from "$app/state";
 	import type { Theme } from "$lib/types";
 	import Icon from "@iconify/svelte";
+	import Config from "$lib/config";
 
 	let { children } = $props();
 
@@ -64,6 +65,10 @@
 		});
 	});
 </script>
+
+<svelte:head>
+	<title>{Config.name}</title>
+</svelte:head>
 
 <button class="theme-button" onclick={toggleTheme}><Icon icon={themeIcons[theme]} /></button>
 
@@ -135,7 +140,7 @@
 			position: absolute;
 			bottom: 4px;
 			left: 0;
-			transition: width 0.25s;
+			transition: width 0.25s !important;
 		}
 
 		&:hover::after {

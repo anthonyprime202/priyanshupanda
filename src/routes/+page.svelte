@@ -45,22 +45,22 @@
 			<div class="stack" transition:fly={{ y: 20, duration: 1000, delay: 400 }}>
 				<div class="languages">
 					<ul>
-						{#each Config.skills.languages as i}
-							<li>{i}</li>
+						{#each Config.skills.languages as { name, source }}
+							<li><a href={source} target="_blank">{name}</a></li>
 						{/each}
 					</ul>
 				</div>
 				<div class="frameworks">
 					<ul>
-						{#each Config.skills.frameworks as i}
-							<li>{i}</li>
+						{#each Config.skills.frameworks as { name, source }}
+							<li><a href={source} target="_blank">{name}</a></li>
 						{/each}
 					</ul>
 				</div>
 				<div class="tools">
 					<ul>
-						{#each Config.skills.tools as i}
-							<li>{i}</li>
+						{#each Config.skills.tools as { name, source }}
+							<li><a href={source} target="_blank">{name}</a></li>
 						{/each}
 					</ul>
 				</div>
@@ -93,6 +93,12 @@
 		}
 	}
 
+	a {
+		color: inherit;
+		display: inline-block;
+		text-decoration: none;
+	}
+
 	.info {
 		display: grid;
 		gap: 1rem;
@@ -111,18 +117,16 @@
 		gap: 1rem;
 		font-size: clamp(1rem, 5vw, 1.5rem);
 		color: var(--color-secondary);
-	}
 
-	a {
-		display: inline-block;
-		transition: scale 0.25s !important;
-		color: inherit;
+		a {
+			transition: scale 0.25s !important;
 
-		&:hover,
-		&:active,
-		&:focus {
-			scale: 1.2;
-			outline: none;
+			&:hover,
+			&:active,
+			&:focus {
+				scale: 1.2;
+				outline: none;
+			}
 		}
 	}
 

@@ -22,8 +22,8 @@
 			<p transition:fly={{ y: 20, duration: 1200, delay: 200 }}>{Config.subtitle}</p>
 			<ul class="links" transition:fly={{ y: 20, duration: 1000, delay: 300 }}>
 				<li class="link">
-					<a href="https://instagram.com/{Config.socials.instagram}"
-						><Icon icon="lucide:instagram" aria-label="Checkout my Instagram Page" /></a
+					<a href="https://instagram.com/{Config.socials.instagram}" aria-label="Checkout my Instagram Page"
+						><Icon icon="lucide:instagram"  /></a
 					>
 				</li>
 				<li class="link">

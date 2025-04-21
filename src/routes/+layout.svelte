@@ -33,8 +33,8 @@
 		system: "lucide:sun-moon",
 	};
 
-	function toggleTheme() {
-		theme = theme === "dark" ? "light" : theme === "light" ? "system" : "dark";
+	function nextTheme(): Theme {
+		return theme === "dark" ? "light" : theme === "light" ? "system" : "dark";
 	}
 
 	$effect(() => {
@@ -70,7 +70,12 @@
 	<title>{Config.name}</title>
 </svelte:head>
 
-<button class="theme-button" onclick={toggleTheme}><Icon icon={themeIcons[theme]} /></button>
+<button
+	class="theme-button"
+	onclick={() => (theme = nextTheme())}
+	title="Switch to {nextTheme()} theme"
+	aria-label="Switch to {nextTheme()} theme"><Icon icon={themeIcons[theme]} /></button
+>
 
 <nav>
 	{#if showNav}
@@ -85,7 +90,10 @@
 					onmouseleave={() => (hoveredNavPos = null)}
 				>
 					{#if hoveredNavPos === pos || href === page.url.pathname}
-						<span class="hover-text-span" transition:fly|global={{ duration: 250, x: -20 }}>c{#if href === page.url.pathname}<span transition:fly|global={{ duration: 250, y: -20 }}>w</span>{/if}d</span
+						<span class="hover-text-span" transition:fly|global={{ duration: 250, x: -20 }}
+							>c{#if href === page.url.pathname}<span
+									transition:fly|global={{ duration: 250, y: -20 }}>w</span
+								>{/if}d</span
 						>
 					{/if}
 
@@ -94,7 +102,7 @@
 			{/each}
 		</ul>
 	{/if}
-	<button class="nav-button" onclick={() => (showNav = !showNav)}>
+	<button class="nav-button" onclick={() => (showNav = !showNav)} title="Change to {theme} theme">
 		{#if showNav}
 			<span class="hover-text-span" transition:fly|global={{ duration: 250, x: -20 }}>c</span>
 		{/if}ls

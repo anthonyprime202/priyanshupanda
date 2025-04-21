@@ -23,19 +23,24 @@
 			<ul class="links" transition:fly={{ y: 20, duration: 1000, delay: 300 }}>
 				<li class="link">
 					<a href="https://instagram.com/{Config.socials.instagram}"
-						><Icon icon="lucide:instagram" /></a
+						><Icon icon="lucide:instagram" aria-label="Checkout my Instagram Page" /></a
 					>
 				</li>
 				<li class="link">
-					<a href="https://github.com/{Config.socials.github}"><Icon icon="lucide:github" /></a>
-				</li>
-				<li class="link">
-					<a href="https://www.linkedin.com/in/{Config.socials.linkedin}/"
-						><Icon icon="lucide:linkedin" /></a
+					<a href="https://github.com/{Config.socials.github}" aria-label="Checkout my Github"
+						><Icon icon="lucide:github" /></a
 					>
 				</li>
 				<li class="link">
-					<a href="mailto:{Config.socials.email}"><Icon icon="lucide:mail" /></a>
+					<a
+						href="https://www.linkedin.com/in/{Config.socials.linkedin}/"
+						aria-label="Checkout my Linkedin"><Icon icon="lucide:linkedin" /></a
+					>
+				</li>
+				<li class="link">
+					<a href="mailto:{Config.socials.email}" aria-label="Email me"
+						><Icon icon="lucide:mail" /></a
+					>
 				</li>
 			</ul>
 		</section>
@@ -46,21 +51,27 @@
 				<div class="languages">
 					<ul>
 						{#each Config.skills.languages as { name, source }}
-							<li><a href={source} target="_blank">{name}</a></li>
+							<li>
+								<a href={source} target="_blank">{name}</a>
+							</li>
 						{/each}
 					</ul>
 				</div>
 				<div class="frameworks">
 					<ul>
 						{#each Config.skills.frameworks as { name, source }}
-							<li><a href={source} target="_blank">{name}</a></li>
+							<li>
+								<a href={source} target="_blank">{name}</a>
+							</li>
 						{/each}
 					</ul>
 				</div>
 				<div class="tools">
 					<ul>
 						{#each Config.skills.tools as { name, source }}
-							<li><a href={source} target="_blank">{name}</a></li>
+							<li>
+								<a href={source} target="_blank">{name}</a>
+							</li>
 						{/each}
 					</ul>
 				</div>
